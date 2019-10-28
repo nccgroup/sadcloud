@@ -83,7 +83,7 @@ terraform destroy
 
 It's possible to set up an AWS provider so you won't have to set environment variables each time.
 
-Create a file called `providers.tf` with the following contents:
+Create a file called `sadcloud/providers.tf` with the following contents:
 
 ```
 provider "aws" {
