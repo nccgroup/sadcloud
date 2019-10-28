@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="https://repository-images.githubusercontent.com/214713418/b5503a80-f973-11e9-9057-4b1351e09242" width=350/>
+</p>
 
 # Sadcloud
 
