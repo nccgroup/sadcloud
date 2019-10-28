@@ -1,0 +1,15 @@
+all_findings = false
+all_cloudformation_findings = false
+all_cloudtrail_findings = false
+all_cloudwatch_findings = false
+all_config_findings = false
+all_ec2_findings = false
+all_elb_findings = false
+all_elbv2_findings = false
+all_iam_findings = false
+all_rds_findings = false
+all_redshift_findings = false
+all_s3_findings = false
+all_ses_findings = false
+all_sns_findings = false
+all_sqs_findings = false
