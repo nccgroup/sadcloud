@@ -1,15 +1,3 @@
-# Creates a single VPC with a subnet, internet gateway, and associated route table.
-module "network" {
-  source = "../network"
-  name = "ec2-sadcloud"
-
-  # todo: this is a workaround until we can add counts to modules
-  # we need a network if we want any of the ec2 findings to work
-  # what that means is that if any findings are enabled then we need to create a network
-  # otherwise, we don't spin one up
-  needs_network = false || var.disallowed_instance_type || var.instance_with_public_ip || var.instance_with_user_data_secrets || var.security_group_opens_all_ports_to_all || var.security_group_opens_all_ports_to_self || var.security_group_opens_icmp_to_all || var.security_group_opens_known_port_to_all || var.security_group_opens_plaintext_port || var.security_group_opens_port_range || var.security_group_opens_port_to_all || var.security_group_whitelists_aws_ip_from_banned_region || var.security_group_whitelists_aws || var.ec2_security_group_whitelists_unknown_cidrs || var.ec2_unused_security_group
-}
-
 # Use the Ubuntu 18.04 AMI
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -30,7 +18,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "main" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "${var.disallowed_instance_type ? "t2.micro" : "t2.small"}"
-  subnet_id     = module.network.main_subnet_id
+  subnet_id     = var.main_subnet_id
   count         = "${var.disallowed_instance_type || var.instance_with_user_data_secrets || var.instance_with_public_ip ? 1 : 0}"
 
 
@@ -48,7 +36,7 @@ resource "aws_security_group" "all_ports_to_all" {
   name  = "${var.name}-all_ports_to_all"
   count = "${var.security_group_opens_all_ports_to_all ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 0
@@ -76,7 +64,7 @@ resource "aws_security_group" "all_ports_to_self" {
   name  = "${var.name}-all_ports_to_self"
   count = "${var.security_group_opens_all_ports_to_self ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 0
@@ -105,7 +93,7 @@ resource "aws_security_group" "icmp_to_all" {
   name  = "${var.name}-icmp_to_all"
   count = "${var.security_group_opens_icmp_to_all ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 0
@@ -133,7 +121,7 @@ resource "aws_security_group" "known_port_to_all" {
   name  = "${var.name}-known_port_to_all"
   count = "${var.security_group_opens_known_port_to_all ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 22 # SSH
@@ -224,7 +212,7 @@ resource "aws_security_group" "opens_plaintext_port" {
   name  = "${var.name}-opens_plaintext_port"
   count = "${var.security_group_opens_plaintext_port ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 21 # FTP
@@ -259,7 +247,7 @@ resource "aws_security_group" "opens_port_range" {
   name  = "${var.name}-opens_port_range"
   count = "${var.security_group_opens_port_range ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 21
@@ -287,7 +275,7 @@ resource "aws_security_group" "opens_port_to_all" {
   name  = "${var.name}-opens_port_to_all"
   count = "${var.security_group_opens_port_to_all ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 21
@@ -315,7 +303,7 @@ resource "aws_security_group" "whitelists_aws_ip_from_banned_region" {
   name  = "${var.name}-whitelists_aws_ip_from_banned_region"
   count = "${var.security_group_whitelists_aws_ip_from_banned_region ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 0
@@ -343,7 +331,7 @@ resource "aws_security_group" "whitelists_aws" {
   name  = "${var.name}-whitelists_aws"
   count = "${var.security_group_whitelists_aws ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 0
@@ -371,7 +359,7 @@ resource "aws_security_group" "whitelists_unknown_cidrs" {
   name  = "${var.name}-whitelists_unknown_cidrs"
   count = "${var.ec2_security_group_whitelists_unknown_cidrs ? 1 : 0}"
 
-  vpc_id = module.network.vpc_id
+  vpc_id = var.vpc_id
 
   ingress {
     from_port   = 0

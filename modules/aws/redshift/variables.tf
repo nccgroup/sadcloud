@@ -4,6 +4,15 @@ variable "name" {
   default     = "sadcloud"
 }
 
+############## Network ##############
+
+variable "main_subnet_id" {
+  description = "ID of main subnet"
+  default = "default_main_subnet_id"
+}
+
+############## Findings ##############
+
 variable "parameter_group_ssl_not_required" {
   description = "allow cleartext connections"
   type        = bool

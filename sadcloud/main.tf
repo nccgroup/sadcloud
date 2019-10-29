@@ -1,3 +1,14 @@
+############## Always leave uncommented! ##############
+# Creates a single VPC with a subnet, internet gateway, and associated route table.
+module "network" {
+  source = "../modules/aws/network"
+
+  # This is a workaround until Terraform supports dynamic modules or counts for modules
+  needs_network = false || var.all_findings || var.all_ec2_findings || var.all_elbv2_findings || var.all_rds_findings || var.all_redshift_findings
+}
+
+############## SERVICES ##############
+
 # module "cloudformation" {
 #   source = "../modules/aws/cloudformation"
 #
@@ -30,20 +41,23 @@
 # module "ec2" {
 #   source = "../modules/aws/ec2"
 #
-#     disallowed_instance_type = false || var.all_ec2_findings || var.all_findings
-#     instance_with_public_ip = false || var.all_ec2_findings || var.all_findings
-#     instance_with_user_data_secrets = false || var.all_ec2_findings || var.all_findings
-#     security_group_opens_all_ports_to_all = false || var.all_ec2_findings || var.all_findings
-#     security_group_opens_all_ports_to_self = false || var.all_ec2_findings || var.all_findings
-#     security_group_opens_icmp_to_all = false || var.all_ec2_findings || var.all_findings
-#     security_group_opens_known_port_to_all = false || var.all_ec2_findings || var.all_findings
-#     security_group_opens_plaintext_port = false || var.all_ec2_findings || var.all_findings
-#     security_group_opens_port_range = false || var.all_ec2_findings || var.all_findings
-#     security_group_opens_port_to_all = false || var.all_ec2_findings || var.all_findings
-#     security_group_whitelists_aws_ip_from_banned_region = false || var.all_ec2_findings || var.all_findings
-#     security_group_whitelists_aws = false || var.all_ec2_findings || var.all_findings
-#     ec2_security_group_whitelists_unknown_cidrs = false || var.all_ec2_findings || var.all_findings
-#     ec2_unused_security_group = false || var.all_ec2_findings || var.all_findings
+#    main_subnet_id = module.network.main_subnet_id
+#    vpc_id = module.network.vpc_id
+#
+#    disallowed_instance_type = false || var.all_ec2_findings || var.all_findings
+#    instance_with_public_ip = false || var.all_ec2_findings || var.all_findings
+#    instance_with_user_data_secrets = false || var.all_ec2_findings || var.all_findings
+#    security_group_opens_all_ports_to_all = false || var.all_ec2_findings || var.all_findings
+#    security_group_opens_all_ports_to_self = false || var.all_ec2_findings || var.all_findings
+#    security_group_opens_icmp_to_all = false || var.all_ec2_findings || var.all_findings
+#    security_group_opens_known_port_to_all = false || var.all_ec2_findings || var.all_findings
+#    security_group_opens_plaintext_port = false || var.all_ec2_findings || var.all_findings
+#    security_group_opens_port_range = false || var.all_ec2_findings || var.all_findings
+#    security_group_opens_port_to_all = false || var.all_ec2_findings || var.all_findings
+#    security_group_whitelists_aws_ip_from_banned_region = false || var.all_ec2_findings || var.all_findings
+#    security_group_whitelists_aws = false || var.all_ec2_findings || var.all_findings
+#    ec2_security_group_whitelists_unknown_cidrs = false || var.all_ec2_findings || var.all_findings
+#    ec2_unused_security_group = false || var.all_ec2_findings || var.all_findings
 # }
 #
 # module "elb" {
@@ -54,6 +68,10 @@
 #
 # module "elbv2" {
 #   source = "../modules/aws/elbv2"
+#
+#   main_subnet_id = module.network.main_subnet_id
+#   secondary_subnet_id = module.network.secondary_subnet_id
+#   vpc_id = module.network.vpc_id
 #
 #   no_access_logs = false || var.all_elbv2_findings || var.all_findings
 #   no_deletion_protection = false || var.all_elbv2_findings || var.all_findings
@@ -81,6 +99,9 @@
 # module "rds" {
 #   source = "../modules/aws/rds"
 #
+#   main_subnet_id = module.network.main_subnet_id
+#   secondary_subnet_id = module.network.secondary_subnet_id
+#
 #   no_minor_upgrade = false || var.all_rds_findings || var.all_findings
 #   backup_disabled = false || var.all_rds_findings || var.all_findings
 #   storage_not_encrypted = false || var.all_rds_findings || var.all_findings
@@ -89,6 +110,8 @@
 #
 # module "redshift" {
 #   source = "../modules/aws/redshift"
+#
+#   main_subnet_id = module.network.main_subnet_id
 #
 #   parameter_group_ssl_not_required = false || var.all_redshift_findings || var.all_findings
 #   parameter_group_logging_disabled = false || var.all_redshift_findings || var.all_findings
