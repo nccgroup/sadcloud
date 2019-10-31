@@ -1,20 +1,14 @@
-# # Creates a single VPC with a subnet, internet gateway, and associated route table.
-module "network" {
-  source = "../network"
-  needs_network = true
-}
-
 resource "aws_s3_bucket" "access_logging" {
   bucket_prefix = var.name
   acl    = "private"
 
-  count = "${var.no_access_logs ? 0 : 1}"
+  count = "${var.no_access_logs && (var.no_deletion_protection || var.older_ssl_policy) ? 1 : 0}"
 }
 
 resource "aws_lb" "main" {
   load_balancer_type = "application"
   enable_deletion_protection = !var.no_deletion_protection
-  subnets = ["${module.network.main_subnet_id}","${module.network.secondary_subnet_id}"]
+  subnets = ["${var.main_subnet_id}","${var.secondary_subnet_id}"]
 
   access_logs {
     bucket  = "${aws_s3_bucket.access_logging[0].bucket_prefix}"
@@ -27,13 +21,9 @@ resource "aws_lb" "main" {
 resource "aws_lb_target_group" "main" {
   port     = 80
   protocol = "HTTP"
-  vpc_id   = "${module.network.vpc_id}"
+  vpc_id   = "${var.vpc_id}"
 
   count = "${var.older_ssl_policy ? 1 : 0}"
-
-  depends_on = [
-    "module.network"
-  ]
 }
 
 resource "aws_iam_server_certificate" "main" {

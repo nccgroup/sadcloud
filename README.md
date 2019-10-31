@@ -46,17 +46,18 @@ Configure sadcloud with your desired misconfigurations:
 * To enable all findings (... excluding those that are in conflict with other findings):
   1. Uncomment all modules in `sadcloud/main.tf`
   2. Either edit the `all_findings` flag in `sadcloud/terraform.tfvars` to `true`, or call `terraform apply` with the flag `--var="all_findings=true"`
-  **NOTE: There is currently a limitation where sadcloud creates a VPC per service that needs one. By default, [AWS only allow 5 VPCs per region per account](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html). To run sadcloud with all_findings, you'll need to [request an increased limit](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=vpc). We have a refactor roadmapped to have all services share a VPC**
+
 
 * To enable all findings in one or more services:
   1. Uncomment the relevant service(s) in `sadcloud/main.tf`
   2. For a single service, either edit the relevant `all_{service}_findings` flag in `sadcloud/terraform.tfvars` to `true`, or call `terraform apply` with the flag `--var="all_{service}_findings=true"`
   3. For multiple services, either edit the `all_findings` flag in `sadcloud/terraform.tfvars` to `true`, or call `terraform apply` with the flag `--var="all_findings=true"`
-  **NOTE: There is currently a [Terraform bug with the Cloudformation service](https://github.com/terraform-providers/terraform-provider-aws/issues/545). To generate Cloudformation findings, you will need to run Terraform apply twice**
+  **NOTE: There is currently a [Terraform bug with the Cloudformation service](https://github.com/terraform-providers/terraform-provider-aws/issues/545). To generate Cloudformation findings, you will need to run `Terraform apply` twice**
 
 * To enable specific findings granularly:
   1. Uncomment the relevant service in `sadcloud/main.tf`
   2. Edit the variables of interest directly in `sadcloud/main.tf`, flipping them to `true` where desired.
+  3. For services that require a VPC, make sure you set `needs_network` to `true` in `sadcloud/main.tf`
 
 **Note:** All misconfigurations in sadcloud are disabled by default. All services are disabled by default to prevent spinning up unnecessary resources. Setting the variable for a misconfiguration to `true` always results in misconfiguration. Running `all_findings` can take 10-15 minutes.
 
