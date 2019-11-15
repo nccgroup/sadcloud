@@ -81,6 +81,11 @@ terraform destroy
 
 **Note:** `terraform apply` will spin up services in AWS. These cost money. Don't forget to `terraform destroy` after you're done. Make sure you `terraform plan` before running `all_findings` so you understand what you're getting yourself into!
 
+
+## Example Audits
+
+Example audits of `all_findings` in a demo environment, using [ScoutSuite](https://github.com/nccgroup/ScoutSuite), [prowler](https://github.com/toniblyx/prowler), and [cloudmapper](https://github.com/duo-labs/cloudmapper), [are available](https://ramimac.github.io/sadcloud-reports/).
+
 ## Extras
 
 ### Using Providers Instead of Environment Variables
