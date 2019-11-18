@@ -78,23 +78,24 @@ module "network" {
 #   older_ssl_policy = false || var.all_elbv2_findings || var.all_findings
 # }
 #
-# module "iam" {
-#   source = "../modules/aws/iam"
-#
-#   password_policy_minimum_length = false || var.all_iam_findings || var.all_findings
-#   password_policy_no_lowercase_required = false || var.all_iam_findings || var.all_findings
-#   password_policy_no_numbers_required = false || var.all_iam_findings || var.all_findings
-#   password_policy_no_uppercase_required = false || var.all_iam_findings || var.all_findings
-#   password_policy_no_symbol_required = false || var.all_iam_findings || var.all_findings
-#   password_policy_reuse_enabled = false || var.all_iam_findings || var.all_findings
-#   password_policy_expiration_threshold = false || var.all_iam_findings || var.all_findings
-#   managed_allows_passrole = false || var.all_iam_findings || var.all_findings
-#   inline_role_policy = false || var.all_iam_findings || var.all_findings
-#   inline_group_policy = false || var.all_iam_findings || var.all_findings
-#   inline_user_policy = false || var.all_iam_findings || var.all_findings
-#   assume_role_policy_allows_all = false || var.all_iam_findings || var.all_findings
-#   assume_role_no_mfa = false || var.all_iam_findings || var.all_findings
-# }
+module "iam" {
+  source = "../modules/aws/iam"
+
+  password_policy_minimum_length = false || var.all_iam_findings || var.all_findings
+  password_policy_no_lowercase_required = false || var.all_iam_findings || var.all_findings
+  password_policy_no_numbers_required = false || var.all_iam_findings || var.all_findings
+  password_policy_no_uppercase_required = false || var.all_iam_findings || var.all_findings
+  password_policy_no_symbol_required = false || var.all_iam_findings || var.all_findings
+  password_policy_reuse_enabled = false || var.all_iam_findings || var.all_findings
+  password_policy_expiration_threshold = false || var.all_iam_findings || var.all_findings
+  managed_allows_passrole = false || var.all_iam_findings || var.all_findings
+  inline_role_policy = false || var.all_iam_findings || var.all_findings
+  inline_group_policy = false || var.all_iam_findings || var.all_findings
+  inline_user_policy = false || var.all_iam_findings || var.all_findings
+  assume_role_policy_allows_all = false || var.all_iam_findings || var.all_findings
+  assume_role_no_mfa = false || var.all_iam_findings || var.all_findings
+  admin_iam_policy = false || var.all_iam_findings || var.all_findings
+}
 #
 # module "rds" {
 #   source = "../modules/aws/rds"
