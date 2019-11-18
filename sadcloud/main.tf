@@ -67,6 +67,13 @@ module "network" {
 #   ecr_repo_public = false || var.all_ecr_findings || var.all_findings
 # }
 #
+# module "elasticsearch" {
+#   source = "../modules/aws/elasticsearch"
+# 
+#   elasticsearch_logging_disabled = false || var.all_elasticsearch_findings || var.all_findings
+#   elasticsearch_open_access = false || var.all_elasticsearch_findings || var.all_findings
+# }
+#
 # module "elb" {
 #   source = "../modules/aws/elb"
 #

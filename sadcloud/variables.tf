@@ -40,6 +40,12 @@ variable "all_ecr_findings" {
   default     = false
 }
 
+variable "all_elasticsearch_findings" {
+  description = "enable all elasticsearch findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_elb_findings" {
   description = "enable all elb findings"
   type        = bool

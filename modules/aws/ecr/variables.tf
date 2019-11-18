@@ -1,5 +1,5 @@
 variable "name" {
-  description = "iam name"
+  description = "ecr name"
   type        = string
   default     = "sadcloud"
 }
