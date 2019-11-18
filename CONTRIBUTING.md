@@ -25,11 +25,7 @@
 #### **Do you want to contribute a new misconfiguration?**
 
 1. Thank you!
-2. Some notes on where to start:
-- Each AWS service has its own module
-- Each misconfiguration maps to a variable in the module's `variables.tf`
-- If a given misconfiguration requires the creation of any resources, ensure that they are not created unless necessary (`count`/`for_each`)
-- Each misconfiguration variable is set in the root `main.tf`, make sure to include conditional checks on `all_{service}_findings` and `all_findings`
+2. Some basic notes on adding misconfigurations or even new providers [are available on the wiki](https://github.com/nccgroup/sadcloud/wiki/Getting-Started-Contributing).
 
 
 Thanks!
