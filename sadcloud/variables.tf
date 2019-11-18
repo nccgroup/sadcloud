@@ -34,6 +34,12 @@ variable "all_ec2_findings" {
   default     = false
 }
 
+variable "all_ecr_findings" {
+  description = "enable all ecr findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_elb_findings" {
   description = "enable all elb findings"
   type        = bool
