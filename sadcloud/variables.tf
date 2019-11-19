@@ -4,6 +4,12 @@ variable "all_findings" {
   default     = false
 }
 
+variable "all_acm_findings" {
+  description = "enable all acm findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_cloudformation_findings" {
   description = "enable all cloudformation findings"
   type        = bool

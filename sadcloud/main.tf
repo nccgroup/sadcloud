@@ -9,6 +9,12 @@ module "network" {
 
 ############## SERVICES ##############
 
+# module "acm" {
+#   source = "../modules/aws/acm"
+#
+#   certificate_transparency_disabled = false || var.all_acm_findings || var.all_findings
+# }
+#
 # module "cloudformation" {
 #   source = "../modules/aws/cloudformation"
 #
@@ -69,7 +75,7 @@ module "network" {
 #
 # module "elasticsearch" {
 #   source = "../modules/aws/elasticsearch"
-# 
+#
 #   elasticsearch_logging_disabled = false || var.all_elasticsearch_findings || var.all_findings
 #   elasticsearch_open_access = false || var.all_elasticsearch_findings || var.all_findings
 # }
