@@ -1,7 +1,7 @@
 resource "aws_cloudformation_stack" "main" {
   name = var.name
 
-  template_body = "${file("${path.module}/S3_Website_Bucket.yaml")}"
+  template_body = "${file("${path.root}/static/S3_Website_Bucket.yaml")}"
   iam_role_arn = "${aws_iam_role.main[0].arn}"
   count = "${var.stack_with_role ? 1 : 0}"
 
