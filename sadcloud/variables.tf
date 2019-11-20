@@ -34,6 +34,12 @@ variable "all_config_findings" {
   default     = false
 }
 
+variable "all_ebs_findings" {
+  description = "enable all ebs findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_ec2_findings" {
   description = "enable all ec2 findings"
   type        = bool

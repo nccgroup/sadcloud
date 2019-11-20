@@ -44,6 +44,14 @@ module "network" {
 #
 #   config_recorder_not_configured = false || var.all_config_findings || var.all_findings
 # }
+
+module "ebs" {
+  source = "../modules/aws/ebs"
+
+  ebs_default_encryption_disabled = false || var.all_ebs_findings || var.all_findings
+  ebs_volume_unencrypted = false || var.all_ebs_findings || var.all_findings
+  ebs_snapshot_unencrypted = false || var.all_ebs_findings || var.all_findings
+}
 #
 # module "ec2" {
 #   source = "../modules/aws/ec2"
