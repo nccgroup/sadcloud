@@ -11,6 +11,14 @@ resource "aws_cloudformation_stack" "main" {
   ]
 }
 
+resource "aws_cloudformation_stack" "secret" {
+  name = "sadcloud-secret-stack"
+
+  template_body = "${file("${path.root}/static/Secret_Output.yaml")}"
+  count = "${var.stack_with_secret_output ? 1 : 0}"
+}
+
+
 resource "aws_iam_role" "main" {
   name = var.name
   count = "${var.stack_with_role ? 1 : 0}"

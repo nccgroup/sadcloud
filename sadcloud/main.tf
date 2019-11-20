@@ -19,6 +19,7 @@ module "network" {
 #   source = "../modules/aws/cloudformation"
 #
 #   stack_with_role = false || var.all_cloudformation_findings || var.all_findings
+#   stack_with_secret_output = false || var.all_cloudformation_findings || var.all_findings
 # }
 #
 # module "cloudtrail" {

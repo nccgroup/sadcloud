@@ -9,3 +9,9 @@ variable "stack_with_role" {
   type        = bool
   default     = false
 }
+
+variable "stack_with_secret_output" {
+  description = "secrets in CloudFormation output"
+  type        = bool
+  default     = false
+}
