@@ -43,7 +43,13 @@ variable "single_az" {
 }
 
 variable "rds_publicly_accessible" {
-  description = "control if instance is publicly accessible"
+  description = "RDS instance is publicly accessible"
   type        = bool
   default     = false
 }
+
+# variable "rds_snapshot_public" {
+#   description = "snapshot is publicly accessible"
+#   type        = bool
+#   default     = false
+# }

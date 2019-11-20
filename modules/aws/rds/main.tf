@@ -24,3 +24,10 @@ resource "aws_db_instance" "main" {
 
   count = "${var.no_minor_upgrade || var.rds_publicly_accessible || var.backup_disabled || var.storage_not_encrypted || var.single_az ? 1 : 0}"
 }
+#
+# resource "aws_db_snapshot" "main" {
+#   db_instance_identifier = "${aws_db_instance.main[0].id}"
+#   db_snapshot_identifier = "sadcloudpublicsnapshot"
+#
+#   count = "${var.rds_snapshot_public ? 1 : 0}"
+# }
