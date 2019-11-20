@@ -20,5 +20,7 @@ resource "aws_db_instance" "main" {
   multi_az = "${var.single_az ? false : true}"
   db_subnet_group_name = aws_db_subnet_group.default[0].name
 
+  publicly_accessible = var.rds_publicly_accessible
+
   count = "${var.no_minor_upgrade || var.backup_disabled || var.storage_not_encrypted || var.single_az ? 1 : 0}"
 }

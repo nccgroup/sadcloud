@@ -128,6 +128,7 @@ module "network" {
 #   backup_disabled = false || var.all_rds_findings || var.all_findings
 #   storage_not_encrypted = false || var.all_rds_findings || var.all_findings
 #   single_az = false || var.all_rds_findings || var.all_findings
+#   rds_publicly_accessible = false || var.all_rds_findings || var.all_findings
 # }
 #
 # module "redshift" {
