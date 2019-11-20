@@ -1,7 +1,7 @@
 resource "aws_db_subnet_group" "default" {
   name       = "main"
   subnet_ids = [var.main_subnet_id, var.secondary_subnet_id]
-  count = "${var.no_minor_upgrade || var.backup_disabled || var.storage_not_encrypted || var.single_az ? 1 : 0}"
+  count = "${var.no_minor_upgrade || var.rds_publicly_accessible || var.backup_disabled || var.storage_not_encrypted || var.single_az ? 1 : 0}"
 }
 
 resource "aws_db_instance" "main" {
@@ -22,5 +22,5 @@ resource "aws_db_instance" "main" {
 
   publicly_accessible = var.rds_publicly_accessible
 
-  count = "${var.no_minor_upgrade || var.backup_disabled || var.storage_not_encrypted || var.single_az ? 1 : 0}"
+  count = "${var.no_minor_upgrade || var.rds_publicly_accessible || var.backup_disabled || var.storage_not_encrypted || var.single_az ? 1 : 0}"
 }
