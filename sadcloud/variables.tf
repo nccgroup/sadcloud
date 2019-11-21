@@ -76,6 +76,12 @@ variable "all_iam_findings" {
   default     = false
 }
 
+variable "all_kms_findings" {
+  description = "enable all kms findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_rds_findings" {
   description = "enable all rds findings"
   type        = bool

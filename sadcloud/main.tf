@@ -44,14 +44,14 @@ module "network" {
 #
 #   config_recorder_not_configured = false || var.all_config_findings || var.all_findings
 # }
-
-module "ebs" {
-  source = "../modules/aws/ebs"
-
-  ebs_default_encryption_disabled = false || var.all_ebs_findings || var.all_findings
-  ebs_volume_unencrypted = false || var.all_ebs_findings || var.all_findings
-  ebs_snapshot_unencrypted = false || var.all_ebs_findings || var.all_findings
-}
+#
+# module "ebs" {
+#   source = "../modules/aws/ebs"
+#
+#   ebs_default_encryption_disabled = false || var.all_ebs_findings || var.all_findings
+#   ebs_volume_unencrypted = false || var.all_ebs_findings || var.all_findings
+#   ebs_snapshot_unencrypted = false || var.all_ebs_findings || var.all_findings
+# }
 #
 # module "ec2" {
 #   source = "../modules/aws/ec2"
@@ -124,6 +124,13 @@ module "ebs" {
 #   assume_role_policy_allows_all = false || var.all_iam_findings || var.all_findings
 #   assume_role_no_mfa = false || var.all_iam_findings || var.all_findings
 #   admin_iam_policy = false || var.all_iam_findings || var.all_findings
+# }
+#
+# module "kms" {
+#   source = "../modules/aws/kms"
+#
+#   key_rotation_disabled = false || var.all_kms_findings || var.all_findings
+#   kms_key_exposed = false || var.all_kms_findings || var.all_findings
 # }
 #
 # module "rds" {
