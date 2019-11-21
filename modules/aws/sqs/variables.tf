@@ -9,3 +9,9 @@ variable "queue_world_policy" {
   type        = bool
   default     = false
 }
+
+variable "sqs_server_side_encryption_disabled" {
+  description = "sqs server side encryption disabled"
+  type        = bool
+  default     = false
+}
