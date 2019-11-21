@@ -23,7 +23,7 @@ resource "aws_instance" "main" {
 
 
   associate_public_ip_address = var.instance_with_public_ip
-  user_data                   = "${var.instance_with_user_data_secrets ? "password" : null}"
+  user_data                   = "${var.instance_with_user_data_secrets ? "password,AKIAIOSFODNN7EXAMPLE" : null}"
 
   tags = {
     Name = var.name

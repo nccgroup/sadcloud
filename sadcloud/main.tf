@@ -182,9 +182,9 @@ module "network" {
 #   topic_world_policy = false || var.all_sns_findings || var.all_findings
 # }
 #
-module "sqs" {
-  source = "../modules/aws/sqs"
-
-  queue_world_policy = false || var.all_sqs_findings || var.all_findings
-  sqs_server_side_encryption_disabled = false || var.all_sqs_findings || var.all_findings
-}
+# module "sqs" {
+#   source = "../modules/aws/sqs"
+#
+#   queue_world_policy = false || var.all_sqs_findings || var.all_findings
+#   sqs_server_side_encryption_disabled = false || var.all_sqs_findings || var.all_findings
+# }
