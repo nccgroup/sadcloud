@@ -19,12 +19,7 @@ resource "aws_sqs_queue_policy" "main" {
       "Effect": "Allow",
       "Principal": "*",
       "Action": "sqs:*",
-      "Resource": "${aws_sqs_queue.main[0].arn}",
-      "Condition" : {
-        "StringEquals" : {
-          "aws:username" : "*"
-        }
-      }
+      "Resource": "${aws_sqs_queue.main[0].arn}"
     }
   ]
 }
