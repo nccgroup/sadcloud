@@ -133,6 +133,12 @@ module "network" {
 #   kms_key_exposed = false || var.all_kms_findings || var.all_findings
 # }
 #
+# module "lightsail" {
+#   source = "../modules/aws/lightsail"
+#
+#   lightsail_in_use = false || var.all_lightsail_findings || var.all_findings
+# }
+#
 # module "rds" {
 #   source = "../modules/aws/rds"
 #

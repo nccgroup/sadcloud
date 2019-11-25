@@ -82,6 +82,13 @@ variable "all_kms_findings" {
   default     = false
 }
 
+variable "all_lightsail_findings" {
+  description = "enable all lightsail findings"
+  type        = bool
+  default     = false
+}
+
+
 variable "all_rds_findings" {
   description = "enable all rds findings"
   type        = bool
