@@ -70,6 +70,12 @@ variable "all_elbv2_findings" {
   default     = false
 }
 
+variable "all_glacier_findings" {
+  description = "enable all glacier findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_iam_findings" {
   description = "enable all iam findings"
   type        = bool
@@ -87,7 +93,6 @@ variable "all_lightsail_findings" {
   type        = bool
   default     = false
 }
-
 
 variable "all_rds_findings" {
   description = "enable all rds findings"

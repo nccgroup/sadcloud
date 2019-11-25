@@ -107,6 +107,12 @@ module "network" {
 #   older_ssl_policy = false || var.all_elbv2_findings || var.all_findings
 # }
 #
+# module "glacier" {
+#   source = "../modules/aws/glacier"
+#
+#   glacier_public = false || var.all_glacier_findings || var.all_findings
+# }
+#
 # module "iam" {
 #   source = "../modules/aws/iam"
 #

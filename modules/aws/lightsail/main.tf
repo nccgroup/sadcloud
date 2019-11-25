@@ -5,5 +5,4 @@ resource "aws_lightsail_instance" "main" {
   bundle_id         = "nano_2_0"
 
   count = "${var.lightsail_in_use ? 1 : 0}"
-
 }
