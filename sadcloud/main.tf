@@ -9,10 +9,17 @@ module "network" {
 
 ############## SERVICES ##############
 
+# module "acm" {
+#   source = "../modules/aws/acm"
+#
+#   certificate_transparency_disabled = false || var.all_acm_findings || var.all_findings
+# }
+#
 # module "cloudformation" {
 #   source = "../modules/aws/cloudformation"
 #
 #   stack_with_role = false || var.all_cloudformation_findings || var.all_findings
+#   stack_with_secret_output = false || var.all_cloudformation_findings || var.all_findings
 # }
 #
 # module "cloudtrail" {
@@ -38,6 +45,14 @@ module "network" {
 #   config_recorder_not_configured = false || var.all_config_findings || var.all_findings
 # }
 #
+# module "ebs" {
+#   source = "../modules/aws/ebs"
+#
+#   ebs_default_encryption_disabled = false || var.all_ebs_findings || var.all_findings
+#   ebs_volume_unencrypted = false || var.all_ebs_findings || var.all_findings
+#   ebs_snapshot_unencrypted = false || var.all_ebs_findings || var.all_findings
+# }
+#
 # module "ec2" {
 #   source = "../modules/aws/ec2"
 #
@@ -58,6 +73,20 @@ module "network" {
 #    security_group_whitelists_aws = false || var.all_ec2_findings || var.all_findings
 #    ec2_security_group_whitelists_unknown_cidrs = false || var.all_ec2_findings || var.all_findings
 #    ec2_unused_security_group = false || var.all_ec2_findings || var.all_findings
+# }
+#
+# module "ecr" {
+#   source = "../modules/aws/ecr"
+#
+#   ecr_scanning_disabled = false || var.all_ecr_findings || var.all_findings
+#   ecr_repo_public = false || var.all_ecr_findings || var.all_findings
+# }
+#
+# module "elasticsearch" {
+#   source = "../modules/aws/elasticsearch"
+#
+#   elasticsearch_logging_disabled = false || var.all_elasticsearch_findings || var.all_findings
+#   elasticsearch_open_access = false || var.all_elasticsearch_findings || var.all_findings
 # }
 #
 # module "elb" {
@@ -94,6 +123,14 @@ module "network" {
 #   inline_user_policy = false || var.all_iam_findings || var.all_findings
 #   assume_role_policy_allows_all = false || var.all_iam_findings || var.all_findings
 #   assume_role_no_mfa = false || var.all_iam_findings || var.all_findings
+#   admin_iam_policy = false || var.all_iam_findings || var.all_findings
+# }
+#
+# module "kms" {
+#   source = "../modules/aws/kms"
+#
+#   key_rotation_disabled = false || var.all_kms_findings || var.all_findings
+#   kms_key_exposed = false || var.all_kms_findings || var.all_findings
 # }
 #
 # module "rds" {
@@ -106,6 +143,7 @@ module "network" {
 #   backup_disabled = false || var.all_rds_findings || var.all_findings
 #   storage_not_encrypted = false || var.all_rds_findings || var.all_findings
 #   single_az = false || var.all_rds_findings || var.all_findings
+#   rds_publicly_accessible = false || var.all_rds_findings || var.all_findings
 # }
 #
 # module "redshift" {
@@ -148,4 +186,5 @@ module "network" {
 #   source = "../modules/aws/sqs"
 #
 #   queue_world_policy = false || var.all_sqs_findings || var.all_findings
+#   sqs_server_side_encryption_disabled = false || var.all_sqs_findings || var.all_findings
 # }

@@ -4,6 +4,12 @@ variable "all_findings" {
   default     = false
 }
 
+variable "all_acm_findings" {
+  description = "enable all acm findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_cloudformation_findings" {
   description = "enable all cloudformation findings"
   type        = bool
@@ -28,8 +34,26 @@ variable "all_config_findings" {
   default     = false
 }
 
+variable "all_ebs_findings" {
+  description = "enable all ebs findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_ec2_findings" {
   description = "enable all ec2 findings"
+  type        = bool
+  default     = false
+}
+
+variable "all_ecr_findings" {
+  description = "enable all ecr findings"
+  type        = bool
+  default     = false
+}
+
+variable "all_elasticsearch_findings" {
+  description = "enable all elasticsearch findings"
   type        = bool
   default     = false
 }
@@ -48,6 +72,12 @@ variable "all_elbv2_findings" {
 
 variable "all_iam_findings" {
   description = "enable all iam findings"
+  type        = bool
+  default     = false
+}
+
+variable "all_kms_findings" {
+  description = "enable all kms findings"
   type        = bool
   default     = false
 }

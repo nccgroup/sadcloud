@@ -1,7 +1,7 @@
 resource "aws_cloudformation_stack" "main" {
   name = var.name
 
-  template_body = "${file("${path.module}/S3_Website_Bucket.yaml")}"
+  template_body = "${file("${path.root}/static/S3_Website_Bucket.yaml")}"
   iam_role_arn = "${aws_iam_role.main[0].arn}"
   count = "${var.stack_with_role ? 1 : 0}"
 
@@ -10,6 +10,14 @@ resource "aws_cloudformation_stack" "main" {
     "aws_iam_role_policy.main"
   ]
 }
+
+resource "aws_cloudformation_stack" "secret" {
+  name = "sadcloud-secret-stack"
+
+  template_body = "${file("${path.root}/static/Secret_Output.yaml")}"
+  count = "${var.stack_with_secret_output ? 1 : 0}"
+}
+
 
 resource "aws_iam_role" "main" {
   name = var.name

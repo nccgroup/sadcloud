@@ -4,6 +4,8 @@ variable "name" {
   default     = "sadcloud"
 }
 
+############## Findings ##############
+
 variable "password_policy_minimum_length" {
   description = "insufficient minumum length"
   type        = bool
@@ -79,6 +81,12 @@ variable "assume_role_policy_allows_all" {
 
 variable "assume_role_no_mfa" {
   description = "Cross-account AssumeRole policy lacks external ID and MFA"
+  type        = bool
+  default     = false
+}
+
+variable "admin_iam_policy" {
+  description = "IAM policy allows full (*:*) administrative privileges"
   type        = bool
   default     = false
 }

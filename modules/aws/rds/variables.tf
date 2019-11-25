@@ -41,3 +41,9 @@ variable "single_az" {
   type        = bool
   default     = false
 }
+
+variable "rds_publicly_accessible" {
+  description = "RDS instance is publicly accessible"
+  type        = bool
+  default     = false
+}

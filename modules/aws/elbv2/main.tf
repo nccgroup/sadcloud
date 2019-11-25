@@ -29,10 +29,10 @@ resource "aws_lb_target_group" "main" {
 resource "aws_iam_server_certificate" "main" {
   name = "test_cert"
   certificate_body = file(
-    "${path.module}/example.crt.pem",
+    "${path.root}/static/example.crt.pem",
   )
   private_key = file(
-    "${path.module}/example.key.pem",
+    "${path.root}/static/example.key.pem",
   )
 
   count = "${var.older_ssl_policy ? 1 : 0}"

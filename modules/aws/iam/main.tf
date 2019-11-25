@@ -157,3 +157,23 @@ resource "aws_iam_account_password_policy" "main" {
   password_reuse_prevention      = !var.password_policy_reuse_enabled ? 5 : 0
   max_password_age = var.password_policy_expiration_threshold ? 0 : 60
 }
+
+resource "aws_iam_policy" "policy" {
+  count = "${var.admin_iam_policy ? 1 : 0}"
+
+  name_prefix = "wildcard_IAM_policy"
+  path        = "/"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "*",
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
