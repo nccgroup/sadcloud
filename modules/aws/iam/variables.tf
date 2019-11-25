@@ -85,8 +85,6 @@ variable "assume_role_no_mfa" {
   default     = false
 }
 
-############## Prowler Findings ##############
-
 variable "admin_iam_policy" {
   description = "IAM policy allows full (*:*) administrative privileges"
   type        = bool
