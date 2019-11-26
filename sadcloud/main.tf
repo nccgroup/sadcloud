@@ -133,6 +133,7 @@ module "network" {
 #   assume_role_policy_allows_all = false || var.all_iam_findings || var.all_findings
 #   assume_role_no_mfa = false || var.all_iam_findings || var.all_findings
 #   admin_iam_policy = false || var.all_iam_findings || var.all_findings
+#   admin_not_indicated_policy = false || var.all_iam_findings || var.all_findings
 # }
 #
 # module "kms" {
