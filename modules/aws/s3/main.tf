@@ -77,3 +77,36 @@ resource "aws_s3_bucket_policy" "force_ssl_only_access" {
 
   count = "${var.allow_cleartext ? 1 : 0}"
 }
+
+data "aws_iam_policy_document" "getonly" {
+  statement {
+    effect = "Allow"
+    
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions = ["s3:GetObject"]
+
+    resources = [
+      "${aws_s3_bucket.getonly[0].arn}",
+      "${aws_s3_bucket.getonly[0].arn}/*",
+    ]
+  }
+
+  count = "${var.s3_getobject_only ? 1 : 0}"
+}
+
+resource "aws_s3_bucket" "getonly" {
+  bucket = "sadcloudhetonlys3"
+
+  count = "${var.s3_getobject_only ? 1 : 0}"
+}
+
+resource "aws_s3_bucket_policy" "getonly" {
+  bucket = "${aws_s3_bucket.getonly[0].id}"
+  policy = "${data.aws_iam_policy_document.getonly[0].json}"
+
+  count = "${var.s3_getobject_only ? 1 : 0}"
+}

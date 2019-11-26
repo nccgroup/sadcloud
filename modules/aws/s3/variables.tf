@@ -51,3 +51,9 @@ variable "website_enabled" {
   type        = bool
   default     = false
 }
+
+variable "s3_getobject_only" {
+  description = "internet accessible s3 bucket (only GetObject)"
+  type        = bool
+  default     = false
+}

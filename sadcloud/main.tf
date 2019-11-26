@@ -178,6 +178,7 @@ module "network" {
 #   no_logging = false || var.all_s3_findings || var.all_findings
 #   no_versioning = false || var.all_s3_findings || var.all_findings
 #   website_enabled = false || var.all_s3_findings || var.all_findings
+#   s3_getobject_only = false || var.all_s3_findings || var.all_findings
 # }
 #
 # module "ses" {
