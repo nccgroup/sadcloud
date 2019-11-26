@@ -101,3 +101,21 @@ variable "ec2_unused_security_group" {
   type        = bool
   default     = false
 }
+
+variable "ec2_unneeded_security_group" {
+  description = "security group cidr cannot be blocked"
+  type        = bool
+  default     = false
+}
+
+variable "ec2_unexpected_security_group" {
+  description = "security group cidr oddly formatted"
+  type        = bool
+  default     = false
+}
+
+variable "ec2_overlapping_security_group" {
+  description = "security group cidrs overlap"
+  type        = bool
+  default     = false
+}

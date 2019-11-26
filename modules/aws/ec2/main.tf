@@ -408,3 +408,46 @@ resource "aws_security_group" "unused_security_group" {
     ipv6_cidr_blocks = ["::/0"]
   }
 }
+
+resource "aws_security_group" "unneeded_security_group" {
+  name  = "${var.name}-unneeded_security_group"
+  count = "${var.ec2_unneeded_security_group ? 1 : 0}"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["127.0.0.0/8"]
+  }
+}
+
+resource "aws_security_group" "unexpected_security_group" {
+  name  = "${var.name}-unexpected_security_group"
+  count = "${var.ec2_unexpected_security_group ? 1 : 0}"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/8"]
+  }
+}
+
+resource "aws_security_group" "overlapping_security_group" {
+  name  = "${var.name}-overlapping_security_group"
+  count = "${var.ec2_overlapping_security_group ? 1 : 0}"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["162.168.2.0/24"]
+  }
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["162.168.2.0/25"]
+  }
+}

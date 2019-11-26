@@ -73,6 +73,9 @@ module "network" {
 #    security_group_whitelists_aws = false || var.all_ec2_findings || var.all_findings
 #    ec2_security_group_whitelists_unknown_cidrs = false || var.all_ec2_findings || var.all_findings
 #    ec2_unused_security_group = false || var.all_ec2_findings || var.all_findings
+#    ec2_unneeded_security_group = false || var.all_ec2_findings || var.all_findings
+#    ec2_unexpected_security_group = false || var.all_ec2_findings || var.all_findings
+#    ec2_overlapping_security_group = false || var.all_ec2_findings || var.all_findings
 # }
 #
 # module "ecr" {
