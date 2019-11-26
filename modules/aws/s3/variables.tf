@@ -57,3 +57,9 @@ variable "s3_getobject_only" {
   type        = bool
   default     = false
 }
+
+variable "s3_public" {
+  description = "internet accessible s3 bucket"
+  type        = bool
+  default     = false
+}

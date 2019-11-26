@@ -81,7 +81,7 @@ resource "aws_s3_bucket_policy" "force_ssl_only_access" {
 data "aws_iam_policy_document" "getonly" {
   statement {
     effect = "Allow"
-    
+
     principals {
       type        = "AWS"
       identifiers = ["*"]
@@ -99,7 +99,7 @@ data "aws_iam_policy_document" "getonly" {
 }
 
 resource "aws_s3_bucket" "getonly" {
-  bucket = "sadcloudhetonlys3"
+  bucket_prefix = "sadcloudhetonlys3"
 
   count = "${var.s3_getobject_only ? 1 : 0}"
 }
@@ -109,4 +109,38 @@ resource "aws_s3_bucket_policy" "getonly" {
   policy = "${data.aws_iam_policy_document.getonly[0].json}"
 
   count = "${var.s3_getobject_only ? 1 : 0}"
+}
+
+
+data "aws_iam_policy_document" "public" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+
+    actions = ["s3:*"]
+
+    resources = [
+      "${aws_s3_bucket.public[0].arn}",
+      "${aws_s3_bucket.public[0].arn}/*",
+    ]
+  }
+
+  count = "${var.s3_public ? 1 : 0}"
+}
+
+resource "aws_s3_bucket" "public" {
+  bucket_prefix = "sadcloudhetonlys3"
+
+  count = "${var.s3_public ? 1 : 0}"
+}
+
+resource "aws_s3_bucket_policy" "public" {
+  bucket = "${aws_s3_bucket.public[0].id}"
+  policy = "${data.aws_iam_policy_document.public[0].json}"
+
+  count = "${var.s3_public ? 1 : 0}"
 }
