@@ -90,3 +90,9 @@ variable "admin_iam_policy" {
   type        = bool
   default     = false
 }
+
+variable "admin_not_indicated_policy" {
+  description = "IAM policy allows full (*:*) administrative privileges, no admin in name"
+  type        = bool
+  default     = false
+}

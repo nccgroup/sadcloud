@@ -177,3 +177,38 @@ resource "aws_iam_policy" "policy" {
 }
 EOF
 }
+
+resource "aws_iam_group" "admin_not_indicated" {
+  count = "${var.admin_not_indicated_policy ? 1 : 0}"
+
+  name = "sadcloud_superuser"
+  path = "/"
+}
+
+
+
+resource "aws_iam_policy" "admin_not_indicated_policy" {
+  count = "${var.admin_not_indicated_policy ? 1 : 0}"
+
+
+  name  = "sadcloud_superuser_policy"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "*",
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_group_policy_attachment" "admin_not_indicated_policy-attach" {
+  group = "${aws_iam_group.admin_not_indicated[0].id}"
+  policy_arn = "${aws_iam_policy.admin_not_indicated_policy[0].arn}"
+  count = "${var.admin_not_indicated_policy ? 1 : 0}"
+}

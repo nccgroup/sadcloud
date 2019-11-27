@@ -73,6 +73,9 @@ module "network" {
 #    security_group_whitelists_aws = false || var.all_ec2_findings || var.all_findings
 #    ec2_security_group_whitelists_unknown_cidrs = false || var.all_ec2_findings || var.all_findings
 #    ec2_unused_security_group = false || var.all_ec2_findings || var.all_findings
+#    ec2_unneeded_security_group = false || var.all_ec2_findings || var.all_findings
+#    ec2_unexpected_security_group = false || var.all_ec2_findings || var.all_findings
+#    ec2_overlapping_security_group = false || var.all_ec2_findings || var.all_findings
 # }
 #
 # module "ecr" {
@@ -107,6 +110,12 @@ module "network" {
 #   older_ssl_policy = false || var.all_elbv2_findings || var.all_findings
 # }
 #
+# module "glacier" {
+#   source = "../modules/aws/glacier"
+#
+#   glacier_public = false || var.all_glacier_findings || var.all_findings
+# }
+#
 # module "iam" {
 #   source = "../modules/aws/iam"
 #
@@ -124,6 +133,7 @@ module "network" {
 #   assume_role_policy_allows_all = false || var.all_iam_findings || var.all_findings
 #   assume_role_no_mfa = false || var.all_iam_findings || var.all_findings
 #   admin_iam_policy = false || var.all_iam_findings || var.all_findings
+#   admin_not_indicated_policy = false || var.all_iam_findings || var.all_findings
 # }
 #
 # module "kms" {
@@ -131,6 +141,12 @@ module "network" {
 #
 #   key_rotation_disabled = false || var.all_kms_findings || var.all_findings
 #   kms_key_exposed = false || var.all_kms_findings || var.all_findings
+# }
+#
+# module "lightsail" {
+#   source = "../modules/aws/lightsail"
+#
+#   lightsail_in_use = false || var.all_lightsail_findings || var.all_findings
 # }
 #
 # module "rds" {
@@ -166,6 +182,8 @@ module "network" {
 #   no_logging = false || var.all_s3_findings || var.all_findings
 #   no_versioning = false || var.all_s3_findings || var.all_findings
 #   website_enabled = false || var.all_s3_findings || var.all_findings
+#   s3_getobject_only = false || var.all_s3_findings || var.all_findings
+#   s3_public = false || var.all_s3_findings || var.all_findings
 # }
 #
 # module "ses" {
