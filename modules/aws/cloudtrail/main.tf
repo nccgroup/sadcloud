@@ -1,11 +1,11 @@
 data "aws_caller_identity" "current" {}
 
 resource "aws_cloudtrail" "main" {
-  count = "${var.not_configured ? 0 : 1}"
-  depends_on = ["aws_s3_bucket_policy.CloudTrailS3Bucket-Policy"]
+  count = var.not_configured ? 0 : 1
+  depends_on = [aws_s3_bucket_policy.CloudTrailS3Bucket-Policy]
 
   name = var.name
-  s3_bucket_name = "${var.no_logging ? null : aws_s3_bucket.logging[0].bucket}"
+  s3_bucket_name = var.no_logging ? null : aws_s3_bucket.logging[0].bucket
 
   include_global_service_events = (var.duplicated_global_services_logging || !var.no_global_services_logging)
   enable_logging = !var.no_logging
@@ -30,14 +30,14 @@ resource "aws_s3_bucket" "logging" {
   bucket_prefix = var.name
   force_destroy = true
 
-  count = "${var.no_logging ? 0 : 1}"
+  count = var.no_logging ? 0 : 1
 }
 
 resource "aws_s3_bucket_policy" "CloudTrailS3Bucket-Policy" {
-  bucket = "${aws_s3_bucket.logging[0].id}"
-  depends_on = ["aws_s3_bucket.logging[0]"]
+  bucket = aws_s3_bucket.logging[0].id
+  depends_on = [aws_s3_bucket.logging[0]]
 
-  count = "${var.no_logging ? 0 : 1}"
+  count = var.no_logging ? 0 : 1
 
   policy = <<POLICY
 {
@@ -63,10 +63,10 @@ POLICY
 }
 
 resource "aws_cloudtrail" "duplicate" {
-  depends_on = ["aws_s3_bucket_policy.CloudTrailS3Bucket-Policy"]
+  depends_on = [aws_s3_bucket_policy.CloudTrailS3Bucket-Policy]
   name = "duplicatesadcloud"
   include_global_service_events = true
-  s3_bucket_name = "${aws_s3_bucket.logging[0].bucket}"
+  s3_bucket_name = aws_s3_bucket.logging[0].bucket
 
-  count = "${(var.duplicated_global_services_logging && !var.no_data_logging) ? 1 : 0}"
+  count = (var.duplicated_global_services_logging && !var.no_data_logging) ? 1 : 0
 }

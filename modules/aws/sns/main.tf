@@ -1,14 +1,14 @@
 resource "aws_sns_topic" "main" {
   name = var.name
 
-  count = "${var.topic_world_policy ? 1 : 0}"
+  count = var.topic_world_policy ? 1 : 0
 }
 
 resource "aws_sns_topic_policy" "main-policy" {
-  arn = "${aws_sns_topic.main[0].arn}"
+  arn = aws_sns_topic.main[0].arn
 
-  policy = "${data.aws_iam_policy_document.sns-topic-policy[0].json}"
-  count = "${var.topic_world_policy ? 1 : 0}"
+  policy = data.aws_iam_policy_document.sns-topic-policy[0].json
+  count = var.topic_world_policy ? 1 : 0
 }
 
 
@@ -34,8 +34,8 @@ data "aws_iam_policy_document" "sns-topic-policy" {
     }
 
     resources = [
-      "${aws_sns_topic.main[0].arn}",
+      aws_sns_topic.main[0].arn,
     ]
   }
-  count = "${var.topic_world_policy ? 1 : 0}"
+  count = var.topic_world_policy ? 1 : 0
 }

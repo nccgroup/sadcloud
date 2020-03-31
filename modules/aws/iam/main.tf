@@ -1,13 +1,13 @@
 resource "aws_iam_group" "inline_group" {
   name = "sadcloudInlineGroup"
 
-  count = "${var.inline_group_policy ? 1 : 0}"
+  count = var.inline_group_policy ? 1 : 0
 }
 
 resource "aws_iam_group_policy" "inline_group_policy" {
-    group = "${aws_iam_group.inline_group[0].id}"
+    group = aws_iam_group.inline_group[0].id
 
-    count = "${var.inline_group_policy ? 1 : 0}"
+    count = var.inline_group_policy ? 1 : 0
 
     policy = <<EOF
 {
@@ -28,13 +28,13 @@ EOF
 resource "aws_iam_user" "inline_user" {
   name = "sadcloudInlineUser"
 
-  count = "${var.inline_user_policy ? 1 : 0}"
+  count = var.inline_user_policy ? 1 : 0
 }
 
 resource "aws_iam_user_policy" "inline_user_policy" {
-  user = "${aws_iam_user.inline_user[0].name}"
+  user = aws_iam_user.inline_user[0].name
 
-  count = "${var.inline_user_policy ? 1 : 0}"
+  count = var.inline_user_policy ? 1 : 0
 
   policy = <<EOF
 {
@@ -52,7 +52,7 @@ EOF
 
 resource "aws_iam_role" "inline_role" {
 
-  count = "${var.inline_role_policy ? 1 : 0}"
+  count = var.inline_role_policy ? 1 : 0
 
   assume_role_policy = <<EOF
 {
@@ -73,9 +73,9 @@ EOF
 
 resource "aws_iam_role_policy" "inline_role_policy" {
   name = "inline-role-policy"
-  role = "${aws_iam_role.inline_role[0].id}"
+  role = aws_iam_role.inline_role[0].id
 
-  count = "${var.inline_role_policy ? 1 : 0}"
+  count = var.inline_role_policy ? 1 : 0
 
 
   policy = <<EOF
@@ -96,7 +96,7 @@ EOF
 
 resource "aws_iam_role" "allow_all" {
 
-  count = "${(var.assume_role_policy_allows_all && !var.assume_role_no_mfa) ? 1 : 0}"
+  count = (var.assume_role_policy_allows_all && !var.assume_role_no_mfa) ? 1 : 0
 
   assume_role_policy = <<EOF
 {
@@ -122,7 +122,7 @@ EOF
 
 resource "aws_iam_role" "allow_all_and_no_mfa" {
 
-  count = "${(var.assume_role_policy_allows_all && var.assume_role_no_mfa) ? 1 : 0}"
+  count = (var.assume_role_policy_allows_all && var.assume_role_no_mfa) ? 1 : 0
 
   assume_role_policy = <<EOF
 {
@@ -147,7 +147,7 @@ EOF
 }
 
 resource "aws_iam_account_password_policy" "main" {
-  count = "${var.password_policy_minimum_length || var.password_policy_no_lowercase_required || var.password_policy_no_numbers_required || var.password_policy_no_uppercase_required || var.password_policy_no_symbol_required || var.password_policy_reuse_enabled || var.password_policy_expiration_threshold ? 1 : 0}"
+  count = (var.password_policy_minimum_length || var.password_policy_no_lowercase_required || var.password_policy_no_numbers_required || var.password_policy_no_uppercase_required || var.password_policy_no_symbol_required || var.password_policy_reuse_enabled || var.password_policy_expiration_threshold) ? 1 : 0
 
   minimum_password_length        = !var.password_policy_minimum_length ? 8 : 6
   require_lowercase_characters   = !var.password_policy_no_lowercase_required
@@ -159,7 +159,7 @@ resource "aws_iam_account_password_policy" "main" {
 }
 
 resource "aws_iam_policy" "policy" {
-  count = "${var.admin_iam_policy ? 1 : 0}"
+  count = var.admin_iam_policy ? 1 : 0
 
   name_prefix = "wildcard_IAM_policy"
   path        = "/"
@@ -179,7 +179,7 @@ EOF
 }
 
 resource "aws_iam_group" "admin_not_indicated" {
-  count = "${var.admin_not_indicated_policy ? 1 : 0}"
+  count = var.admin_not_indicated_policy ? 1 : 0
 
   name = "sadcloud_superuser"
   path = "/"
@@ -188,7 +188,7 @@ resource "aws_iam_group" "admin_not_indicated" {
 
 
 resource "aws_iam_policy" "admin_not_indicated_policy" {
-  count = "${var.admin_not_indicated_policy ? 1 : 0}"
+  count = var.admin_not_indicated_policy ? 1 : 0
 
 
   name  = "sadcloud_superuser_policy"
@@ -208,7 +208,7 @@ EOF
 }
 
 resource "aws_iam_group_policy_attachment" "admin_not_indicated_policy-attach" {
-  group = "${aws_iam_group.admin_not_indicated[0].id}"
-  policy_arn = "${aws_iam_policy.admin_not_indicated_policy[0].arn}"
-  count = "${var.admin_not_indicated_policy ? 1 : 0}"
+  group = aws_iam_group.admin_not_indicated[0].id
+  policy_arn = aws_iam_policy.admin_not_indicated_policy[0].arn
+  count = var.admin_not_indicated_policy ? 1 : 0
 }

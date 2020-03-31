@@ -16,14 +16,14 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "main" {
-  ami           = "${data.aws_ami.ubuntu.id}"
-  instance_type = "${var.disallowed_instance_type ? "t2.micro" : "t2.small"}"
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = var.disallowed_instance_type ? "t2.micro" : "t2.small"
   subnet_id     = var.main_subnet_id
-  count         = "${var.disallowed_instance_type || var.instance_with_user_data_secrets || var.instance_with_public_ip ? 1 : 0}"
+  count         = var.disallowed_instance_type || var.instance_with_user_data_secrets || var.instance_with_public_ip ? 1 : 0
 
 
   associate_public_ip_address = var.instance_with_public_ip
-  user_data                   = "${var.instance_with_user_data_secrets ? "password,AKIAIOSFODNN7EXAMPLE" : null}"
+  user_data                   = var.instance_with_user_data_secrets ? "password,AKIAIOSFODNN7EXAMPLE" : null
 
   tags = {
     Name = var.name
@@ -34,7 +34,7 @@ resource "aws_instance" "main" {
 
 resource "aws_security_group" "all_ports_to_all" {
   name  = "${var.name}-all_ports_to_all"
-  count = "${var.security_group_opens_all_ports_to_all ? 1 : 0}"
+  count = var.security_group_opens_all_ports_to_all ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -62,7 +62,7 @@ resource "aws_security_group" "all_ports_to_all" {
 
 resource "aws_security_group" "all_ports_to_self" {
   name  = "${var.name}-all_ports_to_self"
-  count = "${var.security_group_opens_all_ports_to_self ? 1 : 0}"
+  count = var.security_group_opens_all_ports_to_self ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -91,7 +91,7 @@ resource "aws_security_group" "all_ports_to_self" {
 
 resource "aws_security_group" "icmp_to_all" {
   name  = "${var.name}-icmp_to_all"
-  count = "${var.security_group_opens_icmp_to_all ? 1 : 0}"
+  count = var.security_group_opens_icmp_to_all ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -119,7 +119,7 @@ resource "aws_security_group" "icmp_to_all" {
 
 resource "aws_security_group" "known_port_to_all" {
   name  = "${var.name}-known_port_to_all"
-  count = "${var.security_group_opens_known_port_to_all ? 1 : 0}"
+  count = var.security_group_opens_known_port_to_all ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -210,7 +210,7 @@ resource "aws_security_group" "known_port_to_all" {
 
 resource "aws_security_group" "opens_plaintext_port" {
   name  = "${var.name}-opens_plaintext_port"
-  count = "${var.security_group_opens_plaintext_port ? 1 : 0}"
+  count = var.security_group_opens_plaintext_port ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -245,7 +245,7 @@ resource "aws_security_group" "opens_plaintext_port" {
 
 resource "aws_security_group" "opens_port_range" {
   name  = "${var.name}-opens_port_range"
-  count = "${var.security_group_opens_port_range ? 1 : 0}"
+  count = var.security_group_opens_port_range ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -273,7 +273,7 @@ resource "aws_security_group" "opens_port_range" {
 
 resource "aws_security_group" "opens_port_to_all" {
   name  = "${var.name}-opens_port_to_all"
-  count = "${var.security_group_opens_port_to_all ? 1 : 0}"
+  count = var.security_group_opens_port_to_all ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -301,7 +301,7 @@ resource "aws_security_group" "opens_port_to_all" {
 
 resource "aws_security_group" "whitelists_aws_ip_from_banned_region" {
   name  = "${var.name}-whitelists_aws_ip_from_banned_region"
-  count = "${var.security_group_whitelists_aws_ip_from_banned_region ? 1 : 0}"
+  count = var.security_group_whitelists_aws_ip_from_banned_region ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -329,7 +329,7 @@ resource "aws_security_group" "whitelists_aws_ip_from_banned_region" {
 
 resource "aws_security_group" "whitelists_aws" {
   name  = "${var.name}-whitelists_aws"
-  count = "${var.security_group_whitelists_aws ? 1 : 0}"
+  count = var.security_group_whitelists_aws ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -357,7 +357,7 @@ resource "aws_security_group" "whitelists_aws" {
 
 resource "aws_security_group" "whitelists_unknown_cidrs" {
   name  = "${var.name}-whitelists_unknown_cidrs"
-  count = "${var.ec2_security_group_whitelists_unknown_cidrs ? 1 : 0}"
+  count = var.ec2_security_group_whitelists_unknown_cidrs ? 1 : 0
 
   vpc_id = var.vpc_id
 
@@ -385,7 +385,7 @@ resource "aws_security_group" "whitelists_unknown_cidrs" {
 
 resource "aws_security_group" "unused_security_group" {
   name  = "${var.name}-unused_security_group"
-  count = "${var.ec2_unused_security_group ? 1 : 0}"
+  count = var.ec2_unused_security_group ? 1 : 0
 
   ingress {
     from_port   = 0
@@ -411,7 +411,7 @@ resource "aws_security_group" "unused_security_group" {
 
 resource "aws_security_group" "unneeded_security_group" {
   name  = "${var.name}-unneeded_security_group"
-  count = "${var.ec2_unneeded_security_group ? 1 : 0}"
+  count = var.ec2_unneeded_security_group ? 1 : 0
 
   ingress {
     from_port   = 0
@@ -423,7 +423,7 @@ resource "aws_security_group" "unneeded_security_group" {
 
 resource "aws_security_group" "unexpected_security_group" {
   name  = "${var.name}-unexpected_security_group"
-  count = "${var.ec2_unexpected_security_group ? 1 : 0}"
+  count = var.ec2_unexpected_security_group ? 1 : 0
 
   ingress {
     from_port   = 0
@@ -435,7 +435,7 @@ resource "aws_security_group" "unexpected_security_group" {
 
 resource "aws_security_group" "overlapping_security_group" {
   name  = "${var.name}-overlapping_security_group"
-  count = "${var.ec2_overlapping_security_group ? 1 : 0}"
+  count = var.ec2_overlapping_security_group ? 1 : 0
 
   ingress {
     from_port   = 0

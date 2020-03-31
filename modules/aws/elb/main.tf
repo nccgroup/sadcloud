@@ -1,7 +1,7 @@
 resource "aws_elb" "main" {
   name               = var.name
   availability_zones = ["us-east-1a"]
-  count = "${var.no_access_logs ? 1 : 0}"
+  count = var.no_access_logs ? 1 : 0
 
   dynamic "access_logs" {
     for_each = var.no_access_logs == true ? [] : list(var.no_access_logs)

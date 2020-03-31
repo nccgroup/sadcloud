@@ -52,6 +52,12 @@ variable "all_ecr_findings" {
   default     = false
 }
 
+variable "all_eks_findings" {
+  description = "enable all eks findings"
+  type        = bool
+  default     = false
+}
+
 variable "all_elasticsearch_findings" {
   description = "enable all elasticsearch findings"
   type        = bool

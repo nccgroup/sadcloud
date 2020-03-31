@@ -3,15 +3,15 @@ resource "aws_ses_domain_identity" "main" {
 }
 
 resource "aws_ses_domain_dkim" "main" {
-  domain = "${aws_ses_domain_identity.main.domain}"
+  domain = aws_ses_domain_identity.main.domain
 
-  count = "${var.no_dkim_enabled ? 0 : 1}"
+  count = var.no_dkim_enabled ? 0 : 1
 }
 
 data "aws_iam_policy_document" "main" {
   statement {
     actions   = ["SES:SendEmail", "SES:SendRawEmail"]
-    resources = ["${aws_ses_domain_identity.main.arn}"]
+    resources = [aws_ses_domain_identity.main.arn]
 
     principals {
       identifiers = ["*"]
@@ -22,8 +22,8 @@ data "aws_iam_policy_document" "main" {
 
 resource "aws_ses_identity_policy" "main" {
   name     = var.name
-  identity = "${aws_ses_domain_identity.main.arn}"
-  policy   = "${data.aws_iam_policy_document.main.json}"
+  identity = aws_ses_domain_identity.main.arn
+  policy   = data.aws_iam_policy_document.main.json
 
-  count    = "${var.identity_world_policy ? 1 : 0}"
+  count    = var.identity_world_policy ? 1 : 0
 }
