@@ -1,5 +1,5 @@
 resource "aws_elasticsearch_domain" "main" {
-  count = "${var.elasticsearch_logging_disabled || var.elasticsearch_open_access ? 1 : 0}"
+  count = var.elasticsearch_logging_disabled || var.elasticsearch_open_access ? 1 : 0
 
   domain_name           = var.name
   elasticsearch_version = "6.0"
@@ -15,27 +15,27 @@ resource "aws_elasticsearch_domain" "main" {
   }
 
   log_publishing_options {
-    cloudwatch_log_group_arn = "${aws_cloudwatch_log_group.main[0].arn}"
+    cloudwatch_log_group_arn = aws_cloudwatch_log_group.main[count.index].arn
     log_type                 = "INDEX_SLOW_LOGS"
     enabled = !var.elasticsearch_logging_disabled
   }
 
   log_publishing_options {
-    cloudwatch_log_group_arn = "${aws_cloudwatch_log_group.main[0].arn}"
+    cloudwatch_log_group_arn = aws_cloudwatch_log_group.main[0].arn
     log_type                 = "SEARCH_SLOW_LOGS"
     enabled = !var.elasticsearch_logging_disabled
   }
 }
 
 resource "aws_cloudwatch_log_group" "main" {
-  count = "${var.elasticsearch_open_access && !var.elasticsearch_logging_disabled ? 1 : 0}"
+  count = var.elasticsearch_open_access && !var.elasticsearch_logging_disabled ? 1 : 0
 
   name = var.name
 }
 
 
 resource "aws_cloudwatch_log_resource_policy" "main" {
-  count = "${var.elasticsearch_open_access && !var.elasticsearch_logging_disabled ? 1 : 0}"
+  count = var.elasticsearch_open_access && !var.elasticsearch_logging_disabled ? 1 : 0
 
   policy_name = var.name
 
@@ -61,9 +61,9 @@ CONFIG
 }
 
 resource "aws_elasticsearch_domain_policy" "main" {
-  count = "${var.elasticsearch_open_access ? 1 : 0}"
+  count = var.elasticsearch_open_access ? 1 : 0
 
-  domain_name = "${aws_elasticsearch_domain.main[0].domain_name}"
+  domain_name = aws_elasticsearch_domain.main[0].domain_name
 
   access_policies = <<POLICIES
 {

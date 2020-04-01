@@ -1,14 +1,14 @@
 resource "aws_redshift_subnet_group" "main" {
   name       = "main"
-  subnet_ids = ["${var.main_subnet_id}"]
+  subnet_ids = [var.main_subnet_id]
 
-  count = "${(var.parameter_group_ssl_not_required || var.parameter_group_logging_disabled || var.cluster_publicly_accessible || var.cluster_no_version_upgrade || var.cluster_database_not_encrypted) ? 1 : 0}"
+  count = (var.parameter_group_ssl_not_required || var.parameter_group_logging_disabled || var.cluster_publicly_accessible || var.cluster_no_version_upgrade || var.cluster_database_not_encrypted) ? 1 : 0
 }
 
 resource "aws_redshift_parameter_group" "main" {
   name   = "parameter-group-test-sadcloud"
   family = "redshift-1.0"
-  count = "${(var.parameter_group_ssl_not_required || var.parameter_group_logging_disabled) ? 1 : 0}"
+  count = (var.parameter_group_ssl_not_required || var.parameter_group_logging_disabled) ? 1 : 0
 
   parameter {
     name  = "require_ssl"
@@ -32,5 +32,5 @@ resource "aws_redshift_cluster" "main" {
   encrypted = !var.cluster_database_not_encrypted
   cluster_subnet_group_name = aws_redshift_subnet_group.main[0].name
 
-  count = "${(var.parameter_group_ssl_not_required || var.parameter_group_logging_disabled || var.cluster_publicly_accessible || var.cluster_no_version_upgrade || var.cluster_database_not_encrypted) ? 1 : 0}"
+  count = (var.parameter_group_ssl_not_required || var.parameter_group_logging_disabled || var.cluster_publicly_accessible || var.cluster_no_version_upgrade || var.cluster_database_not_encrypted) ? 1 : 0
 }

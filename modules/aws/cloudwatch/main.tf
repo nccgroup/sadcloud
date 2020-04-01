@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_metric_alarm" "main" {
 
-  count = "${var.alarm_without_actions ? 1 : 0}"
+  count = var.alarm_without_actions ? 1 : 0
 
   alarm_name                = var.name
   comparison_operator       = "GreaterThanOrEqualToThreshold"

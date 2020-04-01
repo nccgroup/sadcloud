@@ -2,7 +2,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_glacier_vault" "main" {
   name = "sadcloud_public_vault"
-  count = "${var.glacier_public ? 1 : 0}"
+  count = var.glacier_public ? 1 : 0
 
   access_policy = <<EOF
 {

@@ -18,13 +18,13 @@ resource "aws_s3_bucket" "main" {
     for_each = var.no_logging ? [] : list(var.no_logging)
 
     content {
-      target_bucket = "${aws_s3_bucket.logging[0].id}"
+      target_bucket = aws_s3_bucket.logging[0].id
       target_prefix = var.name
     }
   }
 
   versioning {
-      enabled = "${var.no_versioning ? false : true}"
+      enabled = var.no_versioning ? false : true
       mfa_delete = false
   }
 
@@ -41,7 +41,7 @@ resource "aws_s3_bucket" "logging" {
   bucket_prefix = var.name
   acl    = var.bucket_acl
 
-  count = "${var.no_logging ? 0 : 1}"
+  count = var.no_logging ? 0 : 1
 }
 
 data "aws_iam_policy_document" "force_ssl_only_access" {
@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "force_ssl_only_access" {
     actions = ["s3:*"]
 
     resources = [
-      "${aws_s3_bucket.main.arn}",
+      aws_s3_bucket.main.arn,
       "${aws_s3_bucket.main.arn}/*",
     ]
 
@@ -72,10 +72,10 @@ data "aws_iam_policy_document" "force_ssl_only_access" {
 }
 
 resource "aws_s3_bucket_policy" "force_ssl_only_access" {
-  bucket = "${aws_s3_bucket.main.id}"
-  policy = "${data.aws_iam_policy_document.force_ssl_only_access.json}"
+  bucket = aws_s3_bucket.main.id
+  policy = data.aws_iam_policy_document.force_ssl_only_access.json
 
-  count = "${var.allow_cleartext ? 1 : 0}"
+  count = var.allow_cleartext ? 1 : 0
 }
 
 data "aws_iam_policy_document" "getonly" {
@@ -90,25 +90,25 @@ data "aws_iam_policy_document" "getonly" {
     actions = ["s3:GetObject"]
 
     resources = [
-      "${aws_s3_bucket.getonly[0].arn}",
+      aws_s3_bucket.getonly[0].arn,
       "${aws_s3_bucket.getonly[0].arn}/*",
     ]
   }
 
-  count = "${var.s3_getobject_only ? 1 : 0}"
+  count = var.s3_getobject_only ? 1 : 0
 }
 
 resource "aws_s3_bucket" "getonly" {
   bucket_prefix = "sadcloudhetonlys3"
 
-  count = "${var.s3_getobject_only ? 1 : 0}"
+  count = var.s3_getobject_only ? 1 : 0
 }
 
 resource "aws_s3_bucket_policy" "getonly" {
-  bucket = "${aws_s3_bucket.getonly[0].id}"
-  policy = "${data.aws_iam_policy_document.getonly[0].json}"
+  bucket = aws_s3_bucket.getonly[0].id
+  policy = data.aws_iam_policy_document.getonly[0].json
 
-  count = "${var.s3_getobject_only ? 1 : 0}"
+  count = var.s3_getobject_only ? 1 : 0
 }
 
 
@@ -124,23 +124,23 @@ data "aws_iam_policy_document" "public" {
     actions = ["s3:*"]
 
     resources = [
-      "${aws_s3_bucket.public[0].arn}",
+      aws_s3_bucket.public[0].arn,
       "${aws_s3_bucket.public[0].arn}/*",
     ]
   }
 
-  count = "${var.s3_public ? 1 : 0}"
+  count = var.s3_public ? 1 : 0
 }
 
 resource "aws_s3_bucket" "public" {
   bucket_prefix = "sadcloudhetonlys3"
 
-  count = "${var.s3_public ? 1 : 0}"
+  count = var.s3_public ? 1 : 0
 }
 
 resource "aws_s3_bucket_policy" "public" {
-  bucket = "${aws_s3_bucket.public[0].id}"
-  policy = "${data.aws_iam_policy_document.public[0].json}"
+  bucket = aws_s3_bucket.public[0].id
+  policy = data.aws_iam_policy_document.public[0].json
 
-  count = "${var.s3_public ? 1 : 0}"
+  count = var.s3_public ? 1 : 0
 }

@@ -1,5 +1,5 @@
 resource "aws_ecr_repository" "main" {
-  count = "${var.ecr_scanning_disabled || var.ecr_repo_public ? 1 : 0}"
+  count = (var.ecr_scanning_disabled || var.ecr_repo_public) ? 1 : 0
 
   name = var.name
   image_tag_mutability = "MUTABLE"
@@ -11,9 +11,9 @@ resource "aws_ecr_repository" "main" {
 }
 
 resource "aws_ecr_repository_policy" "mainecrpolicy" {
-  count = "${var.ecr_repo_public ? 1 : 0}"
+  count = var.ecr_repo_public ? 1 : 0
 
-  repository = "${aws_ecr_repository.main[0].name}"
+  repository = aws_ecr_repository.main[0].name
 
   policy = <<EOF
   {
