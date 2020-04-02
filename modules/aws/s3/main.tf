@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "main" {
   bucket_prefix = var.name
   acl    = "private"
+  force_destroy = true
 
   dynamic "server_side_encryption_configuration" {
     for_each = var.no_default_encryption ? [] : list(var.no_default_encryption)
@@ -40,6 +41,7 @@ resource "aws_s3_bucket" "main" {
 resource "aws_s3_bucket" "logging" {
   bucket_prefix = var.name
   acl    = var.bucket_acl
+  force_destroy = true
 
   count = var.no_logging ? 0 : 1
 }
@@ -100,6 +102,7 @@ data "aws_iam_policy_document" "getonly" {
 
 resource "aws_s3_bucket" "getonly" {
   bucket_prefix = "sadcloudhetonlys3"
+  force_destroy = true
 
   count = var.s3_getobject_only ? 1 : 0
 }
@@ -134,6 +137,7 @@ data "aws_iam_policy_document" "public" {
 
 resource "aws_s3_bucket" "public" {
   bucket_prefix = "sadcloudhetonlys3"
+  force_destroy = true
 
   count = var.s3_public ? 1 : 0
 }
