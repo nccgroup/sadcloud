@@ -15,20 +15,23 @@ resource "aws_elasticsearch_domain" "main" {
   }
 
   log_publishing_options {
-    cloudwatch_log_group_arn = aws_cloudwatch_log_group.main[count.index].arn
+    cloudwatch_log_group_arn = aws_cloudwatch_log_group.main.arn
     log_type                 = "INDEX_SLOW_LOGS"
     enabled = !var.elasticsearch_logging_disabled
   }
 
   log_publishing_options {
-    cloudwatch_log_group_arn = aws_cloudwatch_log_group.main[0].arn
+    cloudwatch_log_group_arn = aws_cloudwatch_log_group.main.arn
     log_type                 = "SEARCH_SLOW_LOGS"
     enabled = !var.elasticsearch_logging_disabled
   }
+
+  depends_on = [
+    aws_cloudwatch_log_group.main
+  ]
 }
 
 resource "aws_cloudwatch_log_group" "main" {
-  count = var.elasticsearch_open_access && !var.elasticsearch_logging_disabled ? 1 : 0
 
   name = var.name
 }
