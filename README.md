@@ -4,11 +4,29 @@
 
 # Sadcloud
 
-Spin up intentionally insecure AWS infrastructure with Terraform. Initial set of findings are mapped to [ScoutSuite](https://www.github.com/nccgroup/scoutsuite), NCCGroup's Multi-cloud auditing tool. `sadcloud` was created to easily allow security researchers to misconfigure AWS for training purposes, or to use to asses AWS security tools - including built-ins and third-party.
+`sadcloud` is a tool for spinning up insecure AWS infrastructure with Terraform.
+
+It supports approx. **84** misconfigurations across **22** AWS Services.
+The inital set of misconfigurations were drawn from [ScoutSuite](https://www.github.com/nccgroup/scoutsuite), NCCGroup's Multi-cloud auditing tool.
+
+`sadcloud` was created to easily allow security researchers to misconfigure AWS for training purposes, or to use to asses AWS security tools - including built-ins and third-party.
 
 # Security Note - must read
 
 This tool spins up _intentionally vulnerable_ AWS configured resources. **Please do not run it in your production cloud, or anywhere that is meant to be secure.** Consider standing up a new AWS account in which to run this tool. As this tool spins up cloud resources, it will result in charges to your AWS account. Efforts have been made to minimize the costs incurred, but NCC Group and this tool's maintainers are not responsible for any charges or security issues that may result from usage of this tool. Make sure to tear down all - Terraform resources when not using them!
+
+## Sample Audits using sadcloud
+
+We periodically use `sadcloud` to demonstrate various AWS and terraform auditing tooling. All audits are against the full corpus of possible misconfigurations.
+
+
+| Tool  | Sample Report |
+| ------------- | ------------- |
+| [ScoutSuite](https://github.com/nccgroup/ScoutSuite)  | https://ramimac.github.io/sadcloud-reports/scoutsuite-reports/scoutsuite-report_03_2020/aws.html  |
+| [prowler](https://github.com/toniblyx/prowler)  | https://ramimac.github.io/sadcloud-reports/prowler-report/report.html  |
+|[cloudmapper](https://github.com/duo-labs/cloudmapper |https://ramimac.github.io/sadcloud-reports/cloudmapper-reports/web_03_2020/account-data/report.html |
+|[cloudsploit](https://github.com/cloudsploit/scans) | https://ramimac.github.io/sadcloud-reports/cloudsploit-scans-reports/scans.04_2020.txt |
+| [tfsec](https://github.com/liamg/tfsec) | https://ramimac.github.io/sadcloud-reports/tfsec/tfsec.03_27_2020.txt |
 
 ## Setup
 
@@ -80,11 +98,6 @@ terraform destroy
 ```
 
 **Note:** `terraform apply` will spin up services in AWS. These cost money. Don't forget to `terraform destroy` after you're done. Make sure you `terraform plan` before running `all_findings` so you understand what you're getting yourself into!
-
-
-## Example Audits
-
-Example audits of `all_findings` in a demo environment, using [ScoutSuite](https://github.com/nccgroup/ScoutSuite), [prowler](https://github.com/toniblyx/prowler), and [cloudmapper](https://github.com/duo-labs/cloudmapper), [are available](https://ramimac.github.io/sadcloud-reports/).
 
 ## Extras
 
