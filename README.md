@@ -24,7 +24,7 @@ We periodically use `sadcloud` to demonstrate various AWS and terraform auditing
 | ------------- | ------------- |
 | [ScoutSuite](https://github.com/nccgroup/ScoutSuite)  | https://ramimac.github.io/sadcloud-reports/scoutsuite-reports/scoutsuite-report_03_2020/aws.html  |
 | [prowler](https://github.com/toniblyx/prowler)  | https://ramimac.github.io/sadcloud-reports/prowler-report/report.html  |
-|[cloudmapper](https://github.com/duo-labs/cloudmapper |https://ramimac.github.io/sadcloud-reports/cloudmapper-reports/web_03_2020/account-data/report.html |
+|[cloudmapper](https://github.com/duo-labs/cloudmapper) |https://ramimac.github.io/sadcloud-reports/cloudmapper-reports/web_03_2020/account-data/report.html |
 |[cloudsploit](https://github.com/cloudsploit/scans) | https://ramimac.github.io/sadcloud-reports/cloudsploit-scans-reports/scans.04_2020.txt |
 | [tfsec](https://github.com/liamg/tfsec) | https://ramimac.github.io/sadcloud-reports/tfsec/tfsec.03_27_2020.txt |
 
