@@ -45,7 +45,7 @@ ssh-keygen -t rsa -b 4096 -f data/ssh_keys/terraform_rsa
 
 Set up the AWS provider (see the "Using Providers Instead of Environment Variables" section below for instructions on avoiding this step):
 
-```
+```sh
 export AWS_ACCESS_KEY_ID="accesskey"
 export AWS_SECRET_ACCESS_KEY="secretkey"
 export AWS_DEFAULT_REGION="us-east-1"
@@ -107,7 +107,7 @@ It's possible to set up an AWS provider so you won't have to set environment var
 
 Create a file called `sadcloud/providers.tf` with the following contents:
 
-```
+```hcl
 provider "aws" {
   access_key = "YOUR_AWS_ACCESS_KEY"
   secret_key = "YOUR_AWS_SECRET_KEY"
