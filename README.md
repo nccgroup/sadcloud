@@ -15,6 +15,10 @@ The inital set of misconfigurations were drawn from [ScoutSuite](https://www.git
 
 This tool spins up _intentionally vulnerable_ AWS configured resources. **Please do not run it in your production cloud, or anywhere that is meant to be secure.** Consider standing up a new AWS account in which to run this tool. As this tool spins up cloud resources, it will result in charges to your AWS account. Efforts have been made to minimize the costs incurred, but NCC Group and this tool's maintainers are not responsible for any charges or security issues that may result from usage of this tool. Make sure to tear down all - Terraform resources when not using them!
 
+### Costs
+
+A 24 hour test run of `sadcloud` generated a bill of approximately $10. The majority of that cost is from the Redshift module (25c/hour = $6/day) and EKS module (10c/hour = $2.40/day).
+
 ## Sample Audits using sadcloud
 
 We periodically use `sadcloud` to demonstrate various AWS and terraform auditing tooling. All audits are against the full corpus of possible misconfigurations.
