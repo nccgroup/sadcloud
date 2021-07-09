@@ -12,7 +12,7 @@ resource "aws_cloudtrail" "main" {
   enable_log_file_validation = !var.no_log_file_validation
 
   dynamic "event_selector" {
-    for_each = var.no_data_logging == true ? [] : list(var.no_data_logging)
+    for_each = var.no_data_logging == true ? [] : tolist([var.no_data_logging])
 
     content {
       read_write_type           = "All"

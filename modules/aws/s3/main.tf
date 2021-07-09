@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "main" {
   force_destroy = true
 
   dynamic "server_side_encryption_configuration" {
-    for_each = var.no_default_encryption ? [] : list(var.no_default_encryption)
+    for_each = var.no_default_encryption ? [] : tolist([var.no_default_encryption])
 
     content {
       rule {
@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "main" {
   }
 
   dynamic "logging" {
-    for_each = var.no_logging ? [] : list(var.no_logging)
+    for_each = var.no_logging ? [] : tolist([var.no_logging])
 
     content {
       target_bucket = aws_s3_bucket.logging[0].id
@@ -30,7 +30,7 @@ resource "aws_s3_bucket" "main" {
   }
 
   dynamic "website" {
-    for_each = var.website_enabled ? [] : list(var.website_enabled)
+    for_each = var.website_enabled ? [] : tolist([var.website_enabled])
 
     content {
       index_document = "index.html"
