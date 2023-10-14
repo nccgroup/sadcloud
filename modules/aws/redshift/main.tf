@@ -25,7 +25,7 @@ resource "aws_redshift_cluster" "main" {
   cluster_identifier = var.name
   master_username    = "foo"
   master_password    = "Password1"
-  node_type          = "dc1.large"
+  node_type          = "dc2.large"
   cluster_type       = "single-node"
   skip_final_snapshot =  true
   allow_version_upgrade = !var.cluster_no_version_upgrade
